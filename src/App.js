@@ -1,22 +1,44 @@
+import React from "react";
 import Card from "./components/Card";
-import Header from "./components/Header"
+import Header from "./components/Header";
 import Drawer from "./components/Drawer";
 
-const arr = [
-  {title: "Мужские Кроссовки Nike Blazer Mid Suede", price: 12999, imageUrl: "/img/sneakers/1.jpg"},
-  {title:"Мужские Кроссовки Nike Air Max 270", price: 12999, imageUrl: "/img/sneakers/2.jpg"},
-  {title:"Мужские Кроссовки Nike Blazer Mid Suede", price: 8499, imageUrl: "/img/sneakers/3.jpg"},
-  {title:"Кроссовки Puma X Aka Boku Future Rider", price: 8999, imageUrl: "/img/sneakers/4.jpg"}
-]
-
 function App() {
+  const [cardOpened, setCardOpened] = React.useState(false);
+  const [items, setItems] = React.useState([]);
+  const [cardItems, setCardItems] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch("https://6407626877c1a905a0f7698a.mockapi.io/items")
+    .then((resp) => {
+      return resp.json();
+    })
+    .then((json) => {
+      setItems(json);
+    });
+  }, [])
+
+  const onAddToCard = (obj) => {
+    setCardItems(prev => [...prev, obj])
+  }
+
+  console.log(cardItems)
+
   return (
     <div className="wrapper">
-     <Drawer/>
-    <Header/>
-
-
-
+      {cardOpened && (
+        <Drawer
+          onClose={() => {
+            setCardOpened(false);
+          }}
+          items={cardItems}
+        />
+      )}
+      <Header
+        onClickCard={() => {
+          setCardOpened(true);
+        }}
+      />
 
       <div className="content">
         <div className="topContent">
@@ -27,18 +49,18 @@ function App() {
           </div>
         </div>
 
-
-
         <div className="sneakers">
-          {
-            arr.map((obj) => (
-              <Card title={obj.title}
-              price={obj.price} 
-              imageUrl = {obj.imageUrl}
-              onClick={() => console.log(obj)}/>
-            ))
-          }
-
+          {items.map((item) => (
+            <Card
+              title={item.title}
+              price={item.price}
+              imageUrl={item.imageUrl}
+              onFavorite={() => {
+                console.log("Нажали лайк");
+              }}
+              onPlus={(obj) => {onAddToCard(obj)}}
+            />
+          ))}
 
           {/* <div className="card">
             <img width={133} height={112} src="/img/sneakers/2.jpg" alt="sneakers" />
@@ -85,10 +107,7 @@ function App() {
               </button>
             </div>
           </div> */}
-
         </div>
-
-
       </div>
     </div>
   );

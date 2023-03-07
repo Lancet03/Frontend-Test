@@ -65,6 +65,9 @@ ul{
   img{
     margin-right: 10px;
   }
+  li{
+    cursor: pointer;
+  }
   li:first-child{
     margin-right: 10px;
   }
@@ -72,6 +75,7 @@ ul{
 
 .content{
   padding: 40px;
+  
 
   h1{
     margin: 0;
@@ -88,6 +92,7 @@ ul{
 
 .sneakers{
 display: flex;
+flex-wrap: wrap;
 }
 
 .cardBottom{
@@ -100,18 +105,6 @@ display: flex;
   display: flex;
   flex-direction: column;
 }
-
-.button{
-  background: #FFFFFF;
-  border: 1px solid #F2F2F2;
-  box-sizing: border-box;
-  border-radius: 8px;
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
-
-}
-
 
 .search-block{
   border: 1px solid #F3F3F3;
