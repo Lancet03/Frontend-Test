@@ -1,28 +1,61 @@
 import React from "react";
-import Card from "./components/Card";
+import { Route, Routes } from "react-router-dom";
+import Home from "./components/pages/Home";
 import Header from "./components/Header";
 import Drawer from "./components/Drawer";
+import Favorites from "./components/pages/Favorites";
+import axios from "axios";
 
 function App() {
   const [cardOpened, setCardOpened] = React.useState(false);
   const [items, setItems] = React.useState([]);
+  const [favorites, setFavorites] = React.useState([]);
+  const [searchValue, setSearchValue] = React.useState("");
   const [cardItems, setCardItems] = React.useState([]);
 
+
   React.useEffect(() => {
-    fetch("https://6407626877c1a905a0f7698a.mockapi.io/items")
-    .then((resp) => {
-      return resp.json();
-    })
-    .then((json) => {
-      setItems(json);
+    axios.get("https://6407626877c1a905a0f7698a.mockapi.io/items").then(res => {
+      setItems(res.data)
     });
+    axios.get("https://6407626877c1a905a0f7698a.mockapi.io/card").then(res => {
+      setCardItems(res.data)
+    });
+
   }, [])
 
   const onAddToCard = (obj) => {
-    setCardItems(prev => [...prev, obj])
+    if (obj.isAdded) {
+      onRemoveItem(obj.id)
+    } else {
+      axios.post("https://6407626877c1a905a0f7698a.mockapi.io/card", obj);
+      setCardItems((prev) => [...prev, obj])
+    }
+    console.log(obj);
   }
 
-  console.log(cardItems)
+  const onRemoveItem = (id) => {
+    axios.delete(`https://6407626877c1a905a0f7698a.mockapi.io/card/${id}`)
+    setCardItems((prev) => prev.filter(item => item.id !== id));
+  }
+
+  const onAddToFavorite = (e) => {
+    if(favorites.find((obj) => obj.id === e.id)){
+      setFavorites((prev)=>{
+        // prev.filter((item) => item.id !== e.id)
+      })
+    }else{
+      setFavorites((prev) => [...prev, e])
+    }
+
+    console.log(favorites)
+  }
+
+  const onChangeSearchInput = (e) => {
+    setSearchValue(e.target.value)
+  }
+
+
 
   return (
     <div className="wrapper">
@@ -31,84 +64,33 @@ function App() {
           onClose={() => {
             setCardOpened(false);
           }}
+          onRemove={onRemoveItem}
           items={cardItems}
         />
       )}
+
       <Header
         onClickCard={() => {
           setCardOpened(true);
         }}
       />
 
-      <div className="content">
-        <div className="topContent">
-          <h1>Все кроссовки</h1>
-          <div className="search-block">
-            <img src="/img/search.svg" alt="Search" />
-            <input type="text" placeholder="Поиск..." />
-          </div>
-        </div>
+      <Routes>
+        <Route exact path="/" element={
+          <Home 
+          items={items}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          onChangeSearchInput={onChangeSearchInput}
+          onAddToFavorite={onAddToFavorite}
+          onAddToCard={onAddToCard} />
+        }/>
+        <Route exact path="/favorites" element={
+          <Favorites items={favorites}
+          onAddToFavorite={onAddToFavorite}/>
+        }/>
+      </Routes>
 
-        <div className="sneakers">
-          {items.map((item) => (
-            <Card
-              title={item.title}
-              price={item.price}
-              imageUrl={item.imageUrl}
-              onFavorite={() => {
-                console.log("Нажали лайк");
-              }}
-              onPlus={(obj) => {onAddToCard(obj)}}
-            />
-          ))}
-
-          {/* <div className="card">
-            <img width={133} height={112} src="/img/sneakers/2.jpg" alt="sneakers" />
-            <h5>Мужские Кроссовки Nike Blazer Mid Suede</h5>
-            <div className="cardBottom">
-              <div className="cardPrice">
-                <span>Цена</span>
-                <b>12 999 руб.</b>
-              </div>
-              <button className="button">
-                <img width={11} height={11} src="/img/plus.svg" alt="add" />
-              </button>
-            </div>
-          </div>
-
-
-
-          <div className="card">
-            <img width={133} height={112} src="/img/sneakers/3.jpg" alt="sneakers" />
-            <h5>Мужские Кроссовки Nike Blazer Mid Suede</h5>
-            <div className="cardBottom">
-              <div className="cardPrice">
-                <span>Цена</span>
-                <b>12 999 руб.</b>
-              </div>
-              <button className="button">
-                <img width={11} height={11} src="/img/plus.svg" alt="add" />
-              </button>
-            </div>
-          </div>
-
-
-
-          <div className="card">
-            <img width={133} height={112} src="/img/sneakers/4.jpg" alt="sneakers" />
-            <h5>Мужские Кроссовки Nike Blazer Mid Suede</h5>
-            <div className="cardBottom">
-              <div className="cardPrice">
-                <span>Цена</span>
-                <b>12 999 руб.</b>
-              </div>
-              <button className="button">
-                <img width={11} height={11} src="/img/plus.svg" alt="add" />
-              </button>
-            </div>
-          </div> */}
-        </div>
-      </div>
     </div>
   );
 }
