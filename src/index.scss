@@ -93,6 +93,20 @@ ul{
   align-items: center;
   justify-content: space-between;
   margin-bottom: 40px;
+
+  .backButton{
+    display: flex;
+    flex-direction: row;
+    img{
+      margin-right: 20px;
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    img:hover{
+      transform: translateX(-2px);
+    }
+  }
 }
 
 .sneakers{
@@ -136,44 +150,6 @@ flex-wrap: wrap;
   cursor: pointer;
 }
 
-.drawerBG{
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-}
-
-.drawer{
-  position: absolute;
-  box-sizing: border-box;
-width: 420px;
-height: 100%;
-right: 0;
-top: 0px;
-
-display: flex;
-flex-direction: column;
-
-background: #FFFFFF;
-box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
-
-padding: 30px;
-h2{
-  margin: 0;
-  margin-bottom: 30px;
-  font-size: 24px;
-  display: flex;
-  justify-content: space-between;
-
-  img{
-    cursor: pointer;
-  }
-}
-}
-
 .cardEmpty{
   display: flex;
   align-items: center;
@@ -192,6 +168,7 @@ h2{
   .greenButton{
     width: 245px;
     margin-top: 20px;
+
     &:hover{
       img{
         transform: rotate(180deg) translateX(3px);
@@ -206,8 +183,8 @@ h2{
       transition: transform 0.15s ease-in-out;
     }
   }
-
 }
+
 
 .items{
   flex: 1;
@@ -288,6 +265,13 @@ h2{
   .greenButton{
     position: relative;
 
+    &:disabled{
+      background-color: #bebebe;
+      cursor: default;
+
+      animation: button-loading 1s ease-in-out infinite;
+    }
+
     &:hover{
       img{
           transform: translateX(5px);
@@ -303,6 +287,21 @@ h2{
   }
 }
 
+@keyframes button-loading {
+  0%{
+    opacity: 1;
+  }
+
+  50%{
+    opacity: 0.8;
+  }
+
+  100%{
+    opacity: 1;
+  }
+}
+
+
 .greenButton{
   width: 100%;
   height: 55px;
@@ -315,6 +314,7 @@ h2{
   font-weight: 600;
   transition: background 0.2s ease-in-out;
   cursor: pointer;
+
   &:hover{
     background: lighten(#9DD558, 5%);
   }
@@ -322,5 +322,52 @@ h2{
   &:active{
     background: darken(#9DD558, 5%);
   }
+}
+
+.emptyPage{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  margin-bottom: 20px;
+
+  h1{
+    margin-top: 10px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  }
+
+  p{
+    font-weight: 400;
+    font-size: 16px;
+    text-align: center;
+    opacity: .5;
+  }
+
+  .greenButton{
+    width: 260px;
+    margin-top: 10px;
+    &:hover{
+      img{
+        transform: rotate(180deg) translateX(3px);
+      }
+    }
+
+    img{
+      position: relative;
+      top: 1px;
+      transform: rotate(180deg);
+      margin-right: 15px;
+      transition: transform 0.15s ease-in-out;
+    }
+
+  }
+
+
+
+
+
 }
 
