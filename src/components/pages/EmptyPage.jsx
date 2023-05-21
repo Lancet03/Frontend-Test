@@ -13,7 +13,7 @@ function EmptyPage(
         <h1>{props.headerCaption}</h1>
         <p>{props.additionTextCaption}</p>
         <Link to="/">
-            <button className="greenButton"><img src="/img/arrow.svg" alt="Arrow" /> Вернуться к товарам</button>
+            <button className="greenButton"><img src="img/arrow.svg" alt="Arrow" /> Вернуться к товарам</button>
         </Link>
     </div>
   )

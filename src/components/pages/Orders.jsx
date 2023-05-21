@@ -15,7 +15,7 @@ function Orders() {
     <div className="content">
       <div className="topContent">
       <div className="backButton">
-          <img onClick={() => navigate(-1)} src="/img/goBack.svg" alt="Вернуться назад" />
+          <img onClick={() => navigate(-1)} src="img/goBack.svg" alt="Вернуться назад" />
         <h1>Мои заказы</h1>
       </div>
       </div>
@@ -31,7 +31,7 @@ function Orders() {
         </div>
         :
         <EmptyPage
-        imgSrc="/img/noOrders.png"
+        imgSrc="img/noOrders.png"
         headerCaption="У вас нет заказов!"
         additionTextCaption="Оформите хотя бы один заказ."/>
         }

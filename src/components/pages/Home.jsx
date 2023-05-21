@@ -36,8 +36,8 @@ isLoading
         <div className="topContent">
           <h1>{searchValue ? `Поиск по запросу "${searchValue}"` : "Все кроссовки"}</h1>
           <div className="search-block">
-            <img src="/img/search.svg" alt="Search" />
-            {searchValue && <img onClick={() => { setSearchValue("") }} className="clearBtn" src="/img/btn-remove.svg" alt="Clear" />}
+            <img src="img/search.svg" alt="Search" />
+            {searchValue && <img onClick={() => { setSearchValue("") }} className="clearBtn" src="img/btn-remove.svg" alt="Clear" />}
             <input onChange={onChangeSearchInput} value={searchValue} type="text" placeholder="Поиск..." />
           </div>
         </div>

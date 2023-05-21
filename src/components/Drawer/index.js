@@ -45,7 +45,7 @@ function Drawer({ onClose, items = [], onRemove, opened}) {
     <div className={`${styles.drawerBG} ${opened ? styles.drawerBGVisible : ''}`}>
       <div className={styles.drawer}>
         <h2>
-          Корзина <img className="removeBtn" onClick={onClose} src="/img/btn-remove.svg" alt="Close" />
+          Корзина <img className="removeBtn" onClick={onClose} src="img/btn-remove.svg" alt="Close" />
         </h2>
         {
           items.length > 0 ?
@@ -61,7 +61,7 @@ function Drawer({ onClose, items = [], onRemove, opened}) {
                         <p>{obj.title}</p>
                         <b>{obj.price} руб.</b>
                       </div>
-                      <img onClick={() => onRemove(obj.id)} className="removeBtn" src="/img/btn-remove.svg" alt="Remove" />
+                      <img onClick={() => onRemove(obj.id)} className="removeBtn" src="img/btn-remove.svg" alt="Remove" />
                     </div>
                   ))}
                 </div>
@@ -78,7 +78,7 @@ function Drawer({ onClose, items = [], onRemove, opened}) {
                       <b>{+(totalPrice * 0.05).toFixed(2)} руб.</b>
                     </li>
                   </ul>
-                  <button disabled={isLoading} onClick={onClickOrder} className="greenButton">Оформить заказ <img src="/img/arrow.svg" alt="Arrow" /></button>
+                  <button disabled={isLoading} onClick={onClickOrder} className="greenButton">Оформить заказ <img src="img/arrow.svg" alt="Arrow" /></button>
                 </div>
               </>
             )
@@ -86,7 +86,7 @@ function Drawer({ onClose, items = [], onRemove, opened}) {
             (
               <Info title={isOrderComplete ? "Заказ оформлен!" : "Корзина пустая"}
                description={isOrderComplete ? `Ваш заказ #${orderCount} скоро будет передан курьерской доставке`: "Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ."}
-              image={isOrderComplete ? "/img/complete-order.png": "/img/empty-card.png"}/>
+              image={isOrderComplete ? "img/complete-order.png": "img/empty-card.png"}/>
 
             )
         }

@@ -13,7 +13,7 @@ function Favorites() {
     <div className="content">
       <div className="topContent">
         <div className="backButton">
-          <img onClick={() => navigate(-1)} src="/img/goBack.svg" alt="Вернуться назад" />
+          <img onClick={() => navigate(-1)} src="img/goBack.svg" alt="Вернуться назад" />
           <h1>Мои закладки</h1>
         </div>
         
@@ -34,7 +34,7 @@ function Favorites() {
         </div>
         :
         <EmptyPage
-        imgSrc="/img/noFavorites.png"
+        imgSrc="img/noFavorites.png"
         headerCaption="Закладок нет!"
         additionTextCaption="Вы ничего не добавляли в закладки"
         />
