@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 function Orders() {
   const { orders } = React.useContext(AppContext);
   const ordersArr = orders.flat()
-  console.log(ordersArr)
 
   const navigate = useNavigate();
 
